@@ -1,20 +1,20 @@
 import { FC } from 'react';
-import { HomeMainForm } from '../features/HomeMainForm';
 import { P404page } from '../pages/P404page';
+import { PostListPage } from '../pages/PostListPage';
 
 interface RouteItem {
   path: string;
   component: FC;
 }
 
-export const routeNameList = ['HomePage', 'Page404'] as const;
+export const routeNameList = ['PostListPage', 'Page404'] as const;
 
 export type Routes = typeof routeNameList[number];
 
 export const routeList: Record<Routes, RouteItem> = {
-  HomePage: {
-    path: '/',
-    component: HomeMainForm,
+  PostListPage: {
+    path: '/posts',
+    component: PostListPage,
   },
 
   Page404: {
