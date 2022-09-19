@@ -1,6 +1,9 @@
 import { FC } from 'react';
 import { postsSlice } from '../postsSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { Button } from '../../../UIKit/Button';
+import { appSlice } from '../../../store/app';
+import { getRoutePath } from '../../../router';
 import styles from './PostListForm.module.scss';
 import { PostItem } from './PostItem';
 
@@ -23,24 +26,34 @@ export const PostListForm: FC = () => {
     dispatch(postsSlice.thunks.prevPageThunk());
   };
 
+  const handlePostEdit = (id: number) => {
+    const path = getRoutePath('PostEditItem', id.toString());
+    dispatch(appSlice.actions.redirect(path));
+  };
+
   return (
     <div className={styles.wrap}>
       <div className={styles.toolPanel}>
-        <button className={styles.toolPanelButton} onClick={handlePrevPage}>
+        <Button className={styles.toolPanelButton} onClick={handlePrevPage}>
           prev
-        </button>
+        </Button>
         <div>
           <div>{`limit: ${limit}`}</div>
           <div>{`skip: ${skip}`}</div>
         </div>
-        <button className={styles.toolPanelButton} onClick={handleNextPage}>
+        <Button className={styles.toolPanelButton} onClick={handleNextPage}>
           next
-        </button>
+        </Button>
       </div>
       <div className={styles.postList}>
         {fetchPostListRequest.data &&
           fetchPostListRequest.data.posts.map((post, index) => (
-            <PostItem post={post} key={post.id} index={index + 1 + skip} />
+            <PostItem
+              post={post}
+              key={post.id}
+              index={index + 1 + skip}
+              onEdit={() => handlePostEdit(post.id)}
+            />
           ))}
       </div>
     </div>

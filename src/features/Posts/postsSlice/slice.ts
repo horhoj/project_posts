@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RequestSliceStateProperty } from '../../../store/types';
-import { FetchPostsResponse } from '../../../api/postsTypes';
+import { FetchPostsResponse, Post } from '../../../api/postsTypes';
 import {
   makeRequestCaseToBuilder,
   makeRequestSliceStateProperty,
@@ -11,14 +11,18 @@ import * as thunks from './thunks';
 
 interface InitialState {
   fetchPostListRequest: RequestSliceStateProperty<FetchPostsResponse>;
+  editPostItemRequest: RequestSliceStateProperty<Post>;
+  patchPostRequest: RequestSliceStateProperty<unknown>;
   limit: number;
   skip: number;
 }
 
 const initialState: InitialState = {
-  fetchPostListRequest: makeRequestSliceStateProperty<FetchPostsResponse>(),
   limit: LIMIT,
   skip: 0,
+  fetchPostListRequest: makeRequestSliceStateProperty<FetchPostsResponse>(),
+  editPostItemRequest: makeRequestSliceStateProperty<Post>(),
+  patchPostRequest: makeRequestSliceStateProperty<unknown>(),
 };
 
 export const { actions, reducer } = createSlice({
@@ -32,6 +36,11 @@ export const { actions, reducer } = createSlice({
     setSkip: (state, action: PayloadAction<number>) => {
       state.skip = action.payload;
     },
+
+    clearFetchPostListRequest: (state) => {
+      state.editPostItemRequest.data = null;
+      state.editPostItemRequest.error = null;
+    },
   },
 
   extraReducers: (builder) => {
@@ -39,6 +48,16 @@ export const { actions, reducer } = createSlice({
       builder,
       thunks.fetchPostListThunks,
       'fetchPostListRequest',
+    );
+    makeRequestCaseToBuilder<InitialState>(
+      builder,
+      thunks.editPostThunk,
+      'editPostItemRequest',
+    );
+    makeRequestCaseToBuilder<InitialState>(
+      builder,
+      thunks.patchPostThunk,
+      'patchPostRequest',
     );
   },
 });

@@ -3,12 +3,21 @@ import { useAppDispatch } from '../../../store/hooks';
 import { LIMIT } from '../config';
 import { postsSlice } from './index';
 
-export const usePostListForm = (): null => {
+export const usePostListForm = (): void => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(postsSlice.thunks.fetchPostListThunks({ skip: 0, limit: LIMIT }));
+    dispatch(postsSlice.thunks.reFetchPostListThunks());
   }, []);
+};
 
-  return null;
+export const usePostItemForm = (id: number): void => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(postsSlice.thunks.editPostThunk({ id }));
+    return () => {
+      dispatch(postsSlice.actions.clearFetchPostListRequest());
+    };
+  }, []);
 };
