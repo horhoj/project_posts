@@ -51,7 +51,7 @@ export const fetchPostList = async ({
     if (index > -1) {
       postListFromServer[index] = diffPostItem;
     } else {
-      postListFromServer.push(diffPostItem);
+      // postListFromServer.push(diffPostItem);
     }
   });
 
@@ -101,7 +101,7 @@ export const patchPostItem = async ({
   if (index > -1) {
     diffPostList[index] = post;
   } else {
-    diffPostList.push(post);
+    // diffPostList.push(post);
   }
 
   setDiffPostList(diffPostList);
