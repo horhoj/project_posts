@@ -1,34 +1,30 @@
 import { FC } from 'react';
-import { P404page } from '../pages/P404page';
-import { PostListPage } from '../pages/PostListPage';
-import { PostItemPage } from '../pages/PostItemPage';
+import { PostListPage } from '../features/Posts/PostListPage';
+import { EditPostItemPage } from '../features/Posts/EditPostItemPage';
+import { Page404 } from '../features/Page404';
 
 interface RouteItem {
   path: string;
   component: FC;
 }
 
-export const routeNameList = [
-  'PostListPage',
-  'PostEditItem',
-  'Page404',
-] as const;
+export const routeNameList = ['postList', 'editPostItem', 'page404'] as const;
 
-export type Routes = typeof routeNameList[number];
+export type RouteNameList = typeof routeNameList[number];
 
-export const routeList: Record<Routes, RouteItem> = {
-  PostListPage: {
+export const routeList: Record<RouteNameList, RouteItem> = {
+  postList: {
     path: '/posts',
     component: PostListPage,
   },
 
-  PostEditItem: {
+  editPostItem: {
     path: '/posts/:id',
-    component: PostItemPage,
+    component: EditPostItemPage,
   },
 
-  Page404: {
+  page404: {
     path: '*',
-    component: P404page,
+    component: Page404,
   },
 };

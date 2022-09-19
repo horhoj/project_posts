@@ -1,8 +1,8 @@
 import { generatePath } from 'react-router-dom';
-import { routeList, Routes } from './routeList';
+import { routeList, RouteNameList } from './routeList';
 
 export const getRoutePath = (
-  routeName: Routes,
+  routeName: RouteNameList,
   id: string | null = null,
 ): string => {
   const path = routeList[routeName].path;

@@ -4,10 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { Button } from '../../../UIKit/Button';
 import { appSlice } from '../../../store/app';
 import { getRoutePath } from '../../../router';
-import styles from './PostListForm.module.scss';
+import styles from './PostListPage.module.scss';
 import { PostItem } from './PostItem';
 
-export const PostListForm: FC = () => {
+export const PostListPage: FC = () => {
   postsSlice.hooks.usePostListForm();
 
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ export const PostListForm: FC = () => {
   };
 
   const handlePostEdit = (id: number) => {
-    const path = getRoutePath('PostEditItem', id.toString());
+    const path = getRoutePath('editPostItem', id.toString());
     dispatch(appSlice.actions.redirect(path));
   };
 

@@ -6,19 +6,16 @@ import { appSlice } from '../../../store/app';
 import { PostItemForm } from '../PostItemForm';
 import { Post } from '../../../api/postsTypes';
 import { PostItemEditData } from '../PostItemForm/types';
-import styles from './EditPostItemForm.module.scss';
-
-interface PostItemFormProps {
-  id: number;
-}
+import styles from './EditPostItemPage.module.scss';
 
 const getInitialValues = (post: Post): PostItemEditData => ({
   title: post.title,
   body: post.body,
 });
 
-export const EditPostItemForm: FC<PostItemFormProps> = ({ id }) => {
-  postsSlice.hooks.usePostItemForm(id);
+export const EditPostItemPage: FC = () => {
+  const { id } = postsSlice.hooks.usePostItemForm();
+
   const dispatch = useAppDispatch();
 
   const editPostItemRequest = useAppSelector(
@@ -26,7 +23,7 @@ export const EditPostItemForm: FC<PostItemFormProps> = ({ id }) => {
   );
 
   const handleCancel = () => {
-    const path = getRoutePath('PostListPage');
+    const path = getRoutePath('postList');
     dispatch(appSlice.actions.redirect(path));
   };
 

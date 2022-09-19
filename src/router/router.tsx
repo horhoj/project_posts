@@ -11,7 +11,7 @@ export const Router: FC = () => {
       <Routes>
         <Route
           path="/"
-          element={<Navigate to={getRoutePath('PostListPage')} />}
+          element={<Navigate to={getRoutePath('postList')} />}
           key={getUUID()}
         />
         {routeNameList.map((routeName) => {

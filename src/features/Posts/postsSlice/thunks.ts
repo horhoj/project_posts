@@ -73,7 +73,7 @@ export const patchPostThunk = createAsyncThunk(
   `${SLICE_NAME}/patchPostThunk`,
   async ({ post }: PatchPostThunkPayload, { dispatch }) => {
     const response = await api.posts.patchPostItem({ post });
-    const path = getRoutePath('PostListPage');
+    const path = getRoutePath('postList');
     dispatch(appSlice.actions.redirect(path));
     return response;
   },
