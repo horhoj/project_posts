@@ -98,10 +98,14 @@ export const patchPostItem = async ({
   const diffPostList = getDiffPostList();
 
   const index = diffPostList.findIndex((item) => item.id === post.id);
+
+  console.log(index);
+
   if (index > -1) {
     diffPostList[index] = post;
+    console.log(12312);
   } else {
-    // diffPostList.push(post);
+    diffPostList.push(post);
   }
 
   setDiffPostList(diffPostList);
